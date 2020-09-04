@@ -15,7 +15,12 @@ pipeline {
 
         stage ('Build') {
             steps {
-                 sh '$M2/mvn -Dmaven.test.failure.ignore=true install'
+                sh '''
+                    export M2="/Users/ravi/Documents/apache-maven-3.6.3/bin"
+                    echo $M2
+                    mvn -version
+                '''
+                 sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
             post {
                 success {
