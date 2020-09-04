@@ -12,14 +12,22 @@ pipeline {
 
         stage ('Build') {
             steps {
-                sh '''
-                    mvn -version
-                '''
                  sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
             post {
                 success {
                     echo "------- Post Build ----------"
+                }
+            }
+        }
+
+        stage ('JUnit Test') {
+            steps {
+                 sh 'mvn -Dmaven.test.failure.ignore=true test'
+            }
+            post {
+                success {
+                    echo "------- JUnit Test Pass  ----------"
                 }
             }
         }

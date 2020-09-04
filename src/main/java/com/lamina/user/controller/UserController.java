@@ -48,7 +48,7 @@ public class UserController {
 	public User save(@RequestBody User user) {
 		logger.info("Create user: {}", user.toString());
 		User user2 = service.save(user);
-		sender.sendData(user);
+//		sender.sendData(user);
 		return user2;
 	}
 
