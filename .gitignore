@@ -1,2 +1,8 @@
 
 .DS_Store
+*.xml
+/target
+/target/**
+.idea
+.idea/**
+user-service.iml
