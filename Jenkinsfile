@@ -28,6 +28,7 @@ pipeline {
             post {
                 success {
                     echo "------- JUnit Test Pass  ----------"
+                    junit 'target/surefire-reports/**/*.xml'
                 }
             }
         }
