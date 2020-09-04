@@ -32,5 +32,15 @@ pipeline {
                 }
             }
         }
+        stage ('Deploy') {
+                    steps {
+                         sh 'mvn -Dmaven.test.failure.ignore=true package'
+                    }
+                    post {
+                        success {
+                            echo "------- Package done  ----------"
+                        }
+                    }
+                }
     }
 }
