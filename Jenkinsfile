@@ -4,7 +4,8 @@ pipeline {
         stage ('Initialize') {
             steps {
                 sh '''
-                    source ~/.bash_profile
+                    export M2="/Users/ravi/Documents/apache-maven-3.6.3/bin"
+                    export M2_HOME="/Users/ravi/Documents/apache-maven-3.6.3"
                     echo "PATH = ${PATH}"
                     echo "M2_HOME = ${M2_HOME}"
                 '''
