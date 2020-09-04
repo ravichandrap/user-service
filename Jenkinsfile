@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven '$M2_HOME'
+        maven '/Users/ravi/Documents/apache-maven-3.6.3'
     }
     stages {
         stage ('Initialize') {
