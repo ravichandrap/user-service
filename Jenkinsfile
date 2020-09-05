@@ -1,14 +1,8 @@
 pipeline {
-
+    agent any
     tools {
         maven 'M3'
 //         jdk 'JAVA_HOME'
-    }
-    agent {
-        docker {
-            image "maven:3-openjdk-11"
-            args '-p 3000:3000'
-        }
     }
 
     stages {
@@ -30,6 +24,9 @@ pipeline {
         }
 
         stage ('JUnit Test') {
+            when {
+                changeRequest target: 'master', branch: /^TEST-\d+$/, comparator: 'REGEXP'
+            }
             steps {
                  sh 'mvn -Dmaven.test.failure.ignore=true test'
             }
