@@ -1,14 +1,16 @@
 pipeline {
-    agent {
-        docker {
-            image "maven:3-openjdk-11"
-            label "docker"
-        }
-    }
+
     tools {
         maven 'M3'
 //         jdk 'JAVA_HOME'
     }
+    agent {
+        docker {
+            image "maven:3-openjdk-11"
+            args '-p 3000:3000'
+        }
+    }
+
     stages {
         stage ('Initialize') {
             steps {
