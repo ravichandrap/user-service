@@ -15,6 +15,7 @@
 	<description>Lamin user details</description>
 
 	<properties>
+		<java.version>11</java.version>
 		<junit.jupiter.version>5.6.0</junit.jupiter.version>
 		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
