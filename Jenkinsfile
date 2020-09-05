@@ -51,7 +51,10 @@ pipeline {
                 mail to: 'r.penumuru@ths-bs.de', subject: 'The Pipeline failed :('
             }
             success {
-                mail to: 'r.penumuru@ths-bs.de', subject: 'The user-service Pipeline success  :)'
+                mail (to: 'r.penumuru@ths-bs.de',
+                        subject: 'The ${env.JOB_NAME} (${env.BUILD_NUMBER}) Success :)',
+                        body: "Please visit the url for more details :${env.BUILD_URL}"
+                    );
             }
         }
 }
