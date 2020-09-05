@@ -48,7 +48,10 @@ pipeline {
                 junit 'target/surefire-reports/**/*.xml'
             }
             failure {
-                mail to: 'r.penumuru@ths-bs.de', subject: 'The Pipeline failed :('
+               mail (to: 'r.penumuru@ths-bs.de',
+                   subject: 'The ${env.JOB_NAME} (${env.BUILD_NUMBER}) Failure!',
+                   body: "Please visit the url for more details :${env.BUILD_URL}"
+               );
             }
             success {
                 mail (to: 'r.penumuru@ths-bs.de',
