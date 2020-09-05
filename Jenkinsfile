@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'M3'
-        JDK 'JAVA_HOME'
+        jdk 'JAVA_HOME'
     }
     stages {
         stage ('Initialize') {
