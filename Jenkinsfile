@@ -24,11 +24,13 @@ pipeline {
         }
 
         stage ('JUnit Test') {
-            when {
-                changeRequest target: 'master', branch: /^TEST-\d+$/, comparator: 'REGEXP'
-            }
+//             when {
+//                 changeRequest target: 'master', branch: /^TEST-\d+$/, comparator: 'REGEXP'
+//             }
             steps {
-                 sh 'mvn -Dmaven.test.failure.ignore=true test'
+                 //sh 'mvn -Dmaven.test.failure.ignore=true test'
+                 sh 'make check || true'
+                 junit '**/target/*.xml'
             }
             post {
                 success {
