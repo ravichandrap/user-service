@@ -42,11 +42,19 @@ pipeline {
                 }
             }
         }
-    }
-    post {
-            always {
-                junit 'target/surefire-reports/**/*.xml'
+        stage("build & SonarQube analysis") {
+            agent any
+            steps {
+              withSonarQubeEnv('My SonarQube Server') {
+                sh 'mvn clean package sonar:sonar'
+              }
             }
+          }
+    }
+//     post {
+//             always {
+//                 junit 'target/surefire-reports/**/*.xml'
+//             }
 //             failure {
 //                mail (to: 'r.penumuru@ths-bs.de',
 //                    subject: 'The ${env.JOB_NAME} (${env.BUILD_NUMBER}) Failure!',
@@ -59,5 +67,5 @@ pipeline {
 //                         body: "Please visit the url for more details :${env.BUILD_URL}"
 //                     );
 //             }
-        }
+//         }
 }
