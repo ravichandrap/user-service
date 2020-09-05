@@ -6,15 +6,15 @@ pipeline {
     }
 
     stages {
-        stage ('Initialize') {
-            steps {
-                echo 'Initialize success'
-            }
-        }
+//         stage ('Initialize') {
+//             steps {
+//                 echo 'Initialize success'
+//             }
+//         }
 
         stage ('Build') {
             steps {
-                 sh 'mvn install'
+                 sh 'mvn clean install'
             }
             post {
                 success {
@@ -30,7 +30,6 @@ pipeline {
             steps {
                  //sh 'mvn -Dmaven.test.failure.ignore=true test'
                  sh 'make check || true'
-                 junit '**/target/*.xml'
             }
             post {
                 success {
