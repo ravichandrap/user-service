@@ -6,17 +6,17 @@ pipeline {
     stages {
         stage ('Initialize') {
             steps {
-                echo "Initialize success"
+                echo 'Initialize success'
             }
         }
 
         stage ('Build') {
             steps {
-                 sh 'mvn -Dmaven.test.failure.ignore=true install'
+                 sh 'mvn -Dmaven.test.failure.ignore=true clean install'
             }
             post {
                 success {
-                    echo "------- Post Build ----------"
+                    echo '------- Post Build ----------'
                 }
             }
         }
@@ -27,20 +27,25 @@ pipeline {
             }
             post {
                 success {
-                    echo "------- JUnit Test Pass  ----------"
+                    echo '------- JUnit Test Pass  ----------'
                     junit 'target/surefire-reports/**/*.xml'
                 }
             }
         }
         stage ('Deploy') {
-                    steps {
-                         sh 'mvn -Dmaven.test.failure.ignore=true package'
-                    }
-                    post {
-                        success {
-                            echo "------- Package done  ----------"
-                        }
-                    }
+            steps {
+                    sh 'mvn -Dmaven.test.failure.ignore=true package'
+            }
+            post {
+                success {
+                    echo '------- Package done  ----------'
                 }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
     }
 }
