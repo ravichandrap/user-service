@@ -83,6 +83,15 @@ public class UserServiceTest {
     }
 
     @Test
+    void shouldFindUserIdSuccessFully() {
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(userDto));
+        User userResult = userService.get(user.getId());
+        assertEquals(userResult.getId(), userDto.getId());
+    }
+
+    @Test
     void shouldDeleteUserSuccessFully() {
         UserDto dto = mock(UserDto.class);
         doNothing().when(userRepository).delete(userDto);
@@ -96,4 +105,5 @@ public class UserServiceTest {
         assertNotNull(userResult);
         assertEquals(USERS_SIZE, userResult.size());
     }
+
 }
