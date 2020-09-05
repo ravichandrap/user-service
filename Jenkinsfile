@@ -48,10 +48,10 @@ pipeline {
                 junit 'target/surefire-reports/**/*.xml'
             }
             failure {
-                mail to: r.penumuru@ths-bs.de, subject: 'The Pipeline failed :('
+                mail to: 'r.penumuru@ths-bs.de', subject: 'The Pipeline failed :('
             }
             success {
-                mail to: r.penumuru@ths-bs.de, subject: 'The user-service Pipeline success  :)'
+                mail to: 'r.penumuru@ths-bs.de', subject: 'The user-service Pipeline success  :)'
             }
         }
 }
