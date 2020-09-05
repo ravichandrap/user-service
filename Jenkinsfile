@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-//         stage ('Initialize') {
-//             steps {
-//                 echo 'Initialize success'
-//             }
-//         }
-
         stage ('Build') {
             steps {
                  sh 'mvn clean install'
@@ -49,4 +43,15 @@ pipeline {
             }
         }
     }
+    post {
+            always {
+                junit 'target/surefire-reports/**/*.xml'
+            }
+            failure {
+                mail to: r.penumuru@ths-bs.de, subject: 'The Pipeline failed :('
+            }
+            success {
+                mail to: r.penumuru@ths-bs.de, subject: 'The user-service Pipeline success  :)'
+            }
+        }
 }
