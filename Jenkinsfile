@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image "maven:3-openjdk-11"
+            label "docker"
+        }
+    }
     tools {
         maven 'M3'
 //         jdk 'JAVA_HOME'
