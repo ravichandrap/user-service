@@ -17,7 +17,7 @@ public class UserService {
 	Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
-	UserRepository repository;
+	UserRepository userRepository;
 
 	private static User dtoToVo(UserDto userDto) {
 		User user = new User();
@@ -26,12 +26,12 @@ public class UserService {
 	}
 
 	public List<User> getUsers() {
-		List<UserDto> userDtos = repository.findAll();
+		List<UserDto> userDtos = userRepository.findAll();
 		return userDtos.stream().map(UserService::dtoToVo).collect(Collectors.toList());
 	}
 
 	public User get(int id) throws HolidayException {
-		Optional<UserDto> userDtoOptional = repository.findById(id);
+		Optional<UserDto> userDtoOptional = userRepository.findById(id);
 		if(userDtoOptional.isPresent()) {
 			User user = new User();
 			BeanUtils.copyProperties(userDtoOptional.get(), user);
@@ -41,28 +41,27 @@ public class UserService {
 		}
 	}
 
-	public User save(User user) {
+	public User save(final User user) {
 		logger.info("User Service ---------->>>>>>>>");
+		logger.info(user.toString());
+
 		UserDto userDto = new UserDto();
 		BeanUtils.copyProperties(user, userDto);
-		return dtoToVo(repository.save(userDto));
+		final UserDto userDtoResult = userRepository.save(userDto);
+		return dtoToVo(userDtoResult);
 	}
 
     public User update(User user) {
 		UserDto userDto = new UserDto();
 		BeanUtils.copyProperties(user, userDto);
-		return dtoToVo(repository.save(userDto));
+		return dtoToVo(userRepository.save(userDto));
     }
 
     public void delete(int id) {
 		try {
-			repository.deleteById(id);
+			userRepository.deleteById(id);
 		} catch (IllegalArgumentException e) {
 			throw new HolidayException("User not found!");
 		}
 	}
-
-	 
-
-
 }

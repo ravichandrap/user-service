@@ -1,20 +1,15 @@
 package com.lamina.user.controller;
 
-import antlr.collections.impl.IntRange;
 import com.lamina.user.service.UserRepository;
 import com.lamina.user.service.UserService;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -41,7 +36,7 @@ public class UserControllerTest {
 
     @Test
     void testGetUser() {
-        when(userService.get(id)).thenReturn(new User(id, "te","","","","",""));
+        when(userService.get(id)).thenReturn(new User(id, "te","","","","","", 200000));
         User user = userController.get(id);
         assertEquals(id, user.getId());
     }
@@ -50,7 +45,7 @@ public class UserControllerTest {
     void testGetUsers() {
         List<User> users = new ArrayList<>(10);
         for(int i=0;i<10;i++) {
-            users.add(new User(id+i, "te"+i,"","","","",""));
+            users.add(new User(id+i, "te"+i,"","","","","", 300000));
         }
         when(userService.getUsers()).thenReturn(users);
         List<User>  userList = userController.getUsers();
@@ -59,7 +54,7 @@ public class UserControllerTest {
 
     @Test
     void test_save() {
-        User userMock = new User( "te","","","","","");
+        User userMock = new User( "te","","","","","", 20202020);
         when(userService.save(any(User.class))).thenReturn(userMock);
         User user = userController.save(userMock);
         System.out.println(user.toString());

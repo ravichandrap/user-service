@@ -1,11 +1,8 @@
 package com.lamina.user.controller;
 
-import org.springframework.beans.BeanUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -17,9 +14,10 @@ public class User implements Serializable {
 	private String address;
 	private String phoneNumber;
 	private String email;
+	private long salary;
 	public User() {}
 
-	public User(int id, String firstName, String lastName, String dateOfBirth, String address, String phoneNumber, String email) {
+	public User(int id, String firstName, String lastName, String dateOfBirth, String address, String phoneNumber, String email, long salary) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -27,15 +25,17 @@ public class User implements Serializable {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.salary = salary;
 	}
 
-	public User( String firstName, String lastName, String dateOfBirth, String address, String phoneNumber, String email) {
+	public User(String firstName, String lastName, String dateOfBirth, String address, String phoneNumber, String email, long salary) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.salary = salary;
 	}
 
 	public int getId() {
@@ -80,11 +80,52 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
-				+ ", address=" + address + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
+		return "User{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", dateOfBirth='" + dateOfBirth + '\'' +
+				", address='" + address + '\'' +
+				", phoneNumber='" + phoneNumber + '\'' +
+				", email='" + email + '\'' +
+				", salary=" + salary +
+				'}';
 	}
-	
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		User user = (User) o;
+
+		return new EqualsBuilder()
+				.append(id, user.id)
+				.append(salary, user.salary)
+				.append(firstName, user.firstName)
+				.append(lastName, user.lastName)
+				.append(dateOfBirth, user.dateOfBirth)
+				.append(address, user.address)
+				.append(phoneNumber, user.phoneNumber)
+				.append(email, user.email)
+				.isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+				.append(id)
+				.append(firstName)
+				.append(lastName)
+				.append(dateOfBirth)
+				.append(address)
+				.append(phoneNumber)
+				.append(email)
+				.append(salary)
+				.toHashCode();
+	}
 }

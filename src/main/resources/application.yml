@@ -5,8 +5,7 @@ spring:
   application:
     name: user-service
 server:
-  port: 81234
-
+  port: 8123
 
 logging:
   file:
