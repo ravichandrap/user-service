@@ -24,5 +24,15 @@ pipeline {
                 // sh 'make check || true'
             }
         }
+        stage("SonarQube") {
+            steps {
+                sh '''
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=user-service \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=d279845c5b28d6a0ddb213d83128564522fca544
+                '''
+            }
+        }
     }
 }
