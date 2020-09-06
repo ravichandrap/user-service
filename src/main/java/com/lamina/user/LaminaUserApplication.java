@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableEurekaClient
 @EnableCircuitBreaker
 @SpringBootApplication
+@EnableHystrix
 public class LaminaUserApplication {
 
 	public static void main(String[] args) {

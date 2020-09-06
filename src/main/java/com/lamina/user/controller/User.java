@@ -18,14 +18,8 @@ public class User implements Serializable {
 	public User() {}
 
 	public User(int id, String firstName, String lastName, String dateOfBirth, String address, String phoneNumber, String email, long salary) {
+		this( firstName, lastName, dateOfBirth, address, phoneNumber, email, salary);
 		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.address = address;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.salary = salary;
 	}
 
 	public User(String firstName, String lastName, String dateOfBirth, String address, String phoneNumber, String email, long salary) {

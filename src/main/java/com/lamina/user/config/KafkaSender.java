@@ -28,9 +28,13 @@ public class KafkaSender {
 		// TODO Auto-generated method stub
 		Map<String, Object> headers = new HashMap<>();
 		headers.put(KafkaHeaders.TOPIC, topicName);
-		kafkaTemplate.send(new GenericMessage<User>(student, headers));
+		kafkaTemplate.send(new GenericMessage(student, headers));
 		// use the below to send String values through kafka
-		 kafkaTemplate.send(topicName, student);
-		LOGGER.info("Data - " + student.toString() + " sent to Kafka Topic - " + topicName);
+		kafkaTemplate.send(topicName, student);
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.info("Data - {} sent to Kafka Topic - {}" ,student.toString(), topicName);
+		}
+
 	}
 }

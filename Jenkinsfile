@@ -1,3 +1,4 @@
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
     tools {
@@ -7,6 +8,11 @@ pipeline {
 
     stages {
         stage ('Build') {
+            when {
+                expression {
+                    CODE_CHANGES == true
+                }
+            }
             steps {
                  sh 'mvn clean install'
             }
@@ -34,7 +40,7 @@ pipeline {
         }
         stage ('Deploy') {
             steps {
-                    echo "Deploy success"
+                    echo 'Deploy success'
             }
             post {
                 success {
@@ -42,7 +48,7 @@ pipeline {
                 }
             }
         }
-        stage("build & SonarQube analysis") {
+        stage('build & SonarQube analysis') {
             agent any
             steps {
               withSonarQubeEnv('My SonarQube Server') {
@@ -50,6 +56,13 @@ pipeline {
               }
             }
           }
+          stage('Quality Gate') {
+              steps {
+                timeout(time: 1, unit: 'HOURS') {
+                  waitForQualityGate abortPipeline: true
+                }
+              }
+            }
     }
 //     post {
 //             always {
