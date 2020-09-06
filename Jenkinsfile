@@ -1,6 +1,5 @@
 /* groovylint-disable-next-line CompileStatic */
-def CODE_CHANGES = getGitChanges()
-
+ 
 pipeline {
     agent any
     tools {
@@ -9,11 +8,7 @@ pipeline {
     }
     stages {
         stage ('Build') {
-            when {
-                expression {
-                    CODE_CHANGES == true
-                }
-            }
+             
             steps {
                  sh 'mvn clean install'
             }
